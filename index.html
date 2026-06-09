@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeBF - 48 Cours Premium | 3000 FCFA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+    .header {
+      padding: 20px;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .header h1 { font-size: 28px; margin-bottom: 8px; }
+    .header p { opacity: 0.8; font-size: 14px; }
+    .premium-banner {
+      margin: 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .premium-banner h2 { font-size: 18px; margin-bottom: 8px; }
+    .premium-banner button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .how-to-buy {
+      margin: 0 20px 20px 20px;
+      padding: 18px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      display: none;
+    }
+    .how-to-buy h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #22c55e;
+    }
+    .how-to-buy ol {
+      padding-left: 20px;
+      margin-bottom: 15px;
+    }
+    .how-to-buy li {
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .buy-number {
+      background: rgba(0,0,0,0.3);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 12px 0;
+    }
+    .buy-number strong {
+      font-size: 18px;
+      color: #f59e0b;
+      letter-spacing: 1px;
+    }
+    .whatsapp-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #25D366;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+    }
+    .close-buy {
+      margin-top: 10px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 8px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .unlock-box {
+      margin: 0 20px 20px 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      display: none;
+    }
+    .unlock-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .unlock-box button {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .lang-filter {
+      display: flex;
+      gap: 8px;
+      padding: 0 20px 20px 20px;
+      overflow-x: auto;
+    }
+    .lang-btn {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      color: #fff;
+      font-size: 14px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .lang-btn.active {
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+    .my-downloads {
+      margin: 0 20px 20px 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: none;
+    }
+    .my-downloads h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+    }
+    .download-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .download-item:last-child { border-bottom: none; }
+    .download-name { font-size: 14px; }
+    .download-date { font-size: 12px; opacity: 0.7; }
+    .clear-downloads {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #ff4757;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .courses {
+      padding: 0 20px 20px 20px;
+      display: grid;
+      gap: 12px;
+    }
+    .course {
+      padding: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .course-info h3 { font-size: 16px; margin-bottom: 4px; }
+    .course-info p { font-size: 13px; opacity: 0.7; }
+    .badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-left: 6px;
+    }
+    .badge-free { background: #22c55e; }
+    .badge-premium { background: #f59e0b; }
+    .download-btn {
+      padding: 10px 16px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .download-btn:disabled {
+      background: rgba(255,255,255,0.2);
+      cursor: not-allowed;
+    }
+    .footer {
+      margin-top: 40px;
+      padding: 30px 20px;
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    .footer h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #f59e0b;
+    }
+    .footer p {
+      font-size: 14px;
+      opacity: 0.8;
+      margin: 6px 0;
+    }
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>💻 CodeBF</h1>
+    <p>48 cours PDF Premium - Python, HTML, CSS, JS, Java, PHP</p>
+  </div>
+
+  <div class="premium-banner" id="premiumBanner">
+    <h2>🔥 Pack Premium : 48 cours pour 3000 FCFA</h2>
+    <p>Paiement unique via Wave / Orange Money. Accès à vie.</p>
+    <div style="display:flex; gap:10px; margin-top:10px;">
+      <button onclick="showHowToBuy()" style="flex:1; background:#22c55e; color:#fff;">💰 Acheter maintenant</button>
+      <button onclick="showUnlockBox()" style="flex:1; background:#fff; color:#d97706;">🔑 J'ai un code</button>
+    </div>
+  </div>
+
+  <div class="how-to-buy" id="howToBuy">
+    <h3>📲 Comment acheter ton code Premium ?</h3>
+    <ol>
+      <li>Envoie <strong>3000 FCFA</strong> sur ce numéro via Wave ou Orange Money</li>
+      <li>Envoie la capture du paiement sur WhatsApp</li>
+      <li>Je t’envoie ton code Premium unique en 2 minutes</li>
+      <li>Entre le code sur le site → Accès aux 48 cours débloqué</li>
+    </ol>
+    <div class="buy-number">
+      Numéro de paiement :<br>
+      <strong>+226 06 62 57 15</strong><br>
+      <span style="font-size:12px; opacity:0.8;">Wave Money & Orange Money</span>
+    </div>
+    <a href="https://wa.me/22606625715?text=Bonjour%20CodeBF%2C%20je%20veux%20acheter%20le%20Pack%20Premium%20%C3%A0%203000%20FCFA" class="whatsapp-btn">
+      💬 Commander sur WhatsApp
+    </a>
+    <button class="close-buy" onclick="hideHowToBuy()">Fermer</button>
+  </div>
+
+  <div class="unlock-box" id="unlockBox">
+    <input type="text" id="codeInput" placeholder="Entre ton code Premium ici">
+    <button onclick="unlockPremium()">Débloquer les 48 cours</button>
+  </div>
+
+  <div class="lang-filter" id="langFilter"></div>
+
+  <div class="my-downloads" id="myDownloads">
+    <h3>📥 Mes téléchargements</h3>
+    <div id="downloadsList"></div>
+  </div>
+
+  <div class="courses" id="coursesList"></div>
+
+  <div class="footer">
+    <h3>À propos du créateur</h3>
+    <p><strong>Kabre Betsaleel</strong></p>
+    <p>📍 Burkina Faso</p>
+    <p>📧 <a href="mailto:kabrebetsaleel@gmail.com">kabrebetsaleel@gmail.com</a></p>
+    <p>📱 <a href="https://wa.me/22606625715">WhatsApp : +226 06 62 57 15</a></p>
+    <p style="margin-top:15px; font-size:12px; opacity:0.6;">© 2026 CodeBF - Tous droits réservés</p>
+  </div>
+    <script type="module">
+    // 1. CONFIG FIREBASE - REMPLACE PAR TES INFOS
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBMcDusHZGUHoQuKccRjSvc3Kuxg-GqhGw",
+      authDomain: "codebf-premium.firebaseapp.com",
+      projectId: "codebf-premium",
+      storageBucket: "codebf-premium.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:abcdef123456"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 2. TON NUMERO WHATSAPP POUR PAIEMENT
+    const WHATSAPP_NUMBER = "22606625715";
+
+    // 3. LISTE DES 48 COURS - REMPLACE LES 3 LIENS TEST + AJOUTE LES AUTRES
+    const COURSES = [
+      {id:1, lang:'Python', title:'Introduction à Python', desc:'Syntaxe, variables, types', link:'https://drive.google.com/uc?export=download&id=1k03TNPDZ275bOwTj4RMD5BH-B7_4W4kx', free:true},
+      {id:2, lang:'Python', title:'Boucles et listes', desc:'for, while, list, dict', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:3, lang:'Python', title:'Fonctions', desc:'def, paramètres, return', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:4, lang:'Python', title:'POO en Python', desc:'Classes, objets, héritage', link:'https://drive.google.com/uc?export=download&id=1pv7U4EhZTz1zYRpJXWB889XQQL9l4Ffn', free:false},
+      {id:5, lang:'Python', title:'Modules et packages', desc:'import, pip, venv', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:6, lang:'Python', title:'Fichiers en Python', desc:'Lecture, écriture, CSV', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:7, lang:'Python', title:'Exceptions', desc:'try, except, finally', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:8, lang:'Python', title:'Projet Python', desc:'Mini-app complète', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:9, lang:'HTML', title:'Bases HTML5', desc:'Structure, balises', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:10, lang:'HTML', title:'Liens et images', desc:'a, img, alt', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:11, lang:'HTML', title:'Tableaux HTML', desc:'table, tr, td', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:12, lang:'HTML', title:'Formulaires', desc:'input, select, textarea', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:13, lang:'CSS', title:'Sélecteurs & couleurs', desc:'Typo, box model, flex', link:'https://drive.google.com/uc?export=download&id=12JMQJ3EZsAjktcTXzRwSIx0QmcavFCI5', free:true},
+      {id:14, lang:'CSS', title:'Mise en page Flexbox', desc:'display flex, align', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:15, lang:'CSS', title:'Grid CSS', desc:'Grilles complexes', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:16, lang:'CSS', title:'Responsive Design', desc:'Media queries', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:17, lang:'JavaScript', title:'JS Bases', desc:'Variables, conditions', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:18, lang:'JavaScript', title:'Fonctions JS', desc:'Arrow, callbacks', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:19, lang:'JavaScript', title:'DOM Manipulation', desc:'querySelector, events', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:20, lang:'JavaScript', title:'Tableaux et objets JS', desc:'Array, Object', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:21, lang:'JavaScript', title:'API Fetch', desc:'Requêtes HTTP', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:22, lang:'JavaScript', title:'LocalStorage', desc:'Sauvegarde locale', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:23, lang:'JavaScript', title:'ES6+ Moderne', desc:'Destructuring, spread', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:24, lang:'JavaScript', title:'Projet JS', desc:'Todo app complète', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:25, lang:'Java', title:'Java Bases', desc:'JDK, variables', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:26, lang:'Java', title:'POO Java', desc:'Classes, héritage', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:27, lang:'Java', title:'Collections Java', desc:'List, Map, Set', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:28, lang:'Java', title:'Exceptions Java', desc:'try-catch', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:29, lang:'Java', title:'Fichiers Java', desc:'File, Scanner', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:30, lang:'Java', title:'Threads Java', desc:'Multithreading', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:31, lang:'Java', title:'JDBC', desc:'Base de données', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:32, lang:'Java', title:'Projet Java', desc:'App console', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:33, lang:'PHP', title:'PHP Bases', desc:'Syntaxe, variables', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:true},
+      {id:34, lang:'PHP', title:'Formulaires PHP', desc:'$_POST, $_GET', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:35, lang:'PHP', title:'Sessions PHP', desc:'$_SESSION', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:36, lang:'PHP', title:'MySQL avec PHP', desc:'PDO, requêtes', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:37, lang:'PHP', title:'POO PHP', desc:'Classes PHP', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:38, lang:'PHP', title:'API REST PHP', desc:'JSON, endpoints', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:39, lang:'PHP', title:'Sécurité PHP', desc:'XSS, SQL injection', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:40, lang:'PHP', title:'Projet PHP', desc:'Blog complet', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:41, lang:'Projet', title:'Site Portfolio', desc:'HTML CSS JS', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:42, lang:'Projet', title:'API Météo', desc:'JS + API externe', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:43, lang:'Projet', title:'E-commerce PHP', desc:'Panier, paiement', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:44, lang:'Projet', title:'App Mobile', desc:'Responsive avancé', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:45, lang:'Projet', title:'Dashboard Admin', desc:'Charts, stats', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:46, lang:'Projet', title:'Chat en temps réel', desc:'WebSocket', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:47, lang:'Projet', title:'Générateur PDF', desc:'JS PDF lib', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false},
+      {id:48, lang:'Projet', title:'Déploiement', desc:'Netlify, Vercel', link:'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', free:false}
+    ];
+
+    let isPremium = localStorage.getItem('codebf_premium') === 'true';
+    let currentLang = 'Tous';
+        // 4. AFFICHAGE DES LANGAGES
+    function renderLangs() {
+      const langs = ['Tous', ...new Set(COURSES.map(c => c.lang))];
+      const container = document.getElementById('langFilter');
+      container.innerHTML = langs.map(lang => `
+        <button class="lang-btn ${lang === currentLang ? 'active' : ''}" 
+                onclick="filterLang('${lang}')">${lang}</button>
+      `).join('');
+    }
+
+    function filterLang(lang) {
+      currentLang = lang;
+      renderLangs();
+      renderCourses();
+    }
+
+    // 5. AFFICHAGE DES COURS
+    function renderCourses() {
+      const container = document.getElementById('coursesList');
+      const filtered = currentLang === 'Tous' ? COURSES : COURSES.filter(c => c.lang === currentLang);
+      
+      container.innerHTML = filtered.map(course => {
+        const canDownload = course.free || isPremium;
+        return `
+          <div class="course">
+            <div class="course-info">
+              <h3>${course.title} 
+                <span class="badge ${course.free ? 'badge-free' : 'badge-premium'}">
+                  ${course.free ? 'Gratuit' : 'Premium'}
+                </span>
+              </h3>
+              <p>${course.lang} • ${course.desc}</p>
+            </div>
+            <button class="download-btn" 
+                    ${!canDownload ? 'disabled' : ''} 
+                    onclick="handleDownload(${course.id})">
+              ${canDownload ? '📥 Télécharger' : '🔒 Premium'}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 6. GESTION TÉLÉCHARGEMENT + HISTORIQUE
+    function handleDownload(courseId) {
+      const course = COURSES.find(c => c.id === courseId);
+      if (!course) return;
+      
+      const canDownload = course.free || isPremium;
+      if (!canDownload) {
+        showHowToBuy();
+        alert('🔒 Ce cours est Premium. Clique sur "Acheter maintenant" pour voir comment débloquer les 48 cours.');
+        return;
+      }
+      
+      downloadCourse(courseId);
+    }
+
+    function downloadCourse(courseId) {
+      const course = COURSES.find(c => c.id === courseId);
+      if (!course) return;
+      
+      // Sauvegarde dans "Mes téléchargements"
+      let downloads = JSON.parse(localStorage.getItem('codebf_downloads') || '[]');
+      const alreadyDownloaded = downloads.find(d => d.id === courseId);
+      
+      if (!alreadyDownloaded) {
+        downloads.unshift({
+          id: course.id,
+          title: course.title,
+          lang: course.lang,
+          date: new Date().toLocaleDateString('fr-FR'),
+          link: course.link
+        });
+        // Garde que les 20 derniers
+        downloads = downloads.slice(0, 20);
+        localStorage.setItem('codebf_downloads', JSON.stringify(downloads));
+        renderDownloads();
+      }
+      
+      // Lance le téléchargement
+      window.open(course.link, '_blank');
+    }
+
+    // 7. AFFICHAGE "MES TÉLÉCHARGEMENTS"
+    function renderDownloads() {
+      const downloads = JSON.parse(localStorage.getItem('codebf_downloads') || '[]');
+      const container = document.getElementById('downloadsList');
+      const section = document.getElementById('myDownloads');
+      
+      if (downloads.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+      
+      section.style.display = 'block';
+      container.innerHTML = downloads.map(d => `
+        <div class="download-item">
+          <div>
+            <div class="download-name">${d.lang} - ${d.title}</div>
+            <div class="download-date">Téléchargé le ${d.date}</div>
+          </div>
+          <button onclick="window.open('${d.link}', '_blank')" style="padding:4px 8px; background:#22c55e; border:none; border-radius:4px; color:white; font-size:12px; cursor:pointer;">Re-télécharger</button>
+        </div>
+      `).join('') + `<button class="clear-downloads" onclick="clearDownloads()">Vider l'historique</button>`;
+    }
+
+    function clearDownloads() {
+      if (confirm('Supprimer l’historique des téléchargements ?')) {
+        localStorage.removeItem('codebf_downloads');
+        renderDownloads();
+      }
+    }
+
+    // 8. SYSTÈME PREMIUM FIREBASE
+    function showHowToBuy() {
+      document.getElementById('howToBuy').style.display = 'block';
+      document.getElementById('unlockBox').style.display = 'none';
+    }
+
+    function hideHowToBuy() {
+      document.getElementById('howToBuy').style.display = 'none';
+    }
+
+    function showUnlockBox() {
+      document.getElementById('unlockBox').style.display = 'block';
+      document.getElementById('howToBuy').style.display = 'none';
+      document.getElementById('codeInput').focus();
+    }
+
+    async function unlockPremium() {
+      const code = document.getElementById('codeInput').value.trim().toUpperCase();
+      if (!code) {
+        alert('Entre un code Premium');
+        return;
+      }
+
+      try {
+        const codeRef = doc(db, 'codes', code);
+        const codeSnap = await getDoc(codeRef);
+
+        if (!codeSnap.exists()) {
+          alert('❌ Code invalide');
+          return;
+        }
+
+        const data = codeSnap.data();
+        if (data.used === true) {
+          alert('❌ Ce code a déjà été utilisé');
+          return;
+        }
+
+        // Marquer comme utilisé
+        await updateDoc(codeRef, { used: true, usedAt: new Date().toISOString() });
+
+        // Débloquer le Premium
+        isPremium = true;
+        localStorage.setItem('codebf_premium', 'true');
+        document.getElementById('premiumBanner').style.display = 'none';
+        document.getElementById('unlockBox').style.display = 'none';
+        renderCourses();
+        alert('✅ Premium activé ! Tu as accès aux 48 cours à vie.');
+
+      } catch (error) {
+        console.error(error);
+        alert('❌ Erreur de connexion. Réessaye.');
+      }
+    }
+
+    // 9. INIT
+    function init() {
+      if (isPremium) {
+        document.getElementById('premiumBanner').style.display = 'none';
+      }
+      renderLangs();
+      renderCourses();
+      renderDownloads();
+    }
+
+    // Lancer au chargement
+    init();
+    window.filterLang = filterLang;
+    window.handleDownload = handleDownload;
+    window.showHowToBuy = showHowToBuy;
+    window.hideHowToBuy = hideHowToBuy;
+    window.showUnlockBox = showUnlockBox;
+    window.unlockPremium = unlockPremium;
+    window.clearDownloads = clearDownloads;
+      </script>
+</body>
+</html>
