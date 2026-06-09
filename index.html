@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeBF - 48 Cours Premium</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    #welcomePage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .welcome-box {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 500px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .welcome-box h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .welcome-box p {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .welcome-box button {
+      background: #fff;
+      color: #667eea;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    #premiumBanner {
+      background: #ff6b6b;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #unlockBox {
+      background: #1a1a1a;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    #unlockBox h3 {
+      margin-bottom: 15px;
+      color: #667eea;
+    }
+
+    #codeInput {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      font-size: 1em;
+      border: 2px solid #333;
+      background: #0a0a0a;
+      color: #fff;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    #unlockBox button {
+      background: #667eea;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #coursesGrid {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .course-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .course-card.locked {
+      opacity: 0.5;
+      position: relative;
+    }
+
+    .course-card.locked::after {
+      content: "🔒";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+    }
+
+    .course-img {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3em;
+    }
+
+    .course-content {
+      padding: 15px;
+    }
+
+    .course-content h3 {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+    }
+
+    .course-content p {
+      font-size: 0.9em;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .course-content button {
+      background: #667eea;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      font-size: 0.9em;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .course-content button:disabled {
+      background: #333;
+      cursor: not-allowed;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="welcomePage">
+    <div class="welcome-box">
+      <h1>🚀 Bienvenue sur CodeBF</h1>
+      <p>48 Cours Premium pour devenir développeur pro</p>
+      <p style="font-size:0.9em;opacity:0.7;">HTML, CSS, JavaScript, React, Node.js, Python...</p>
+      <p style="font-size:0.9em;opacity:0.7;">Support WhatsApp: +226 06 62 57 15</p>
+      <button onclick="closeWelcome()">Commencer →</button>
+    </div>
+  </div>
+
+  <header>
+    <h1>💻 CodeBF Premium</h1>
+    <p>48 Cours Complets - Accès à Vie</p>
+  </header>
+
+  <div id="premiumBanner">
+    🔒 Mode Gratuit : 3 cours disponibles. Débloque les 48 cours avec un code Premium
+  </div>
+
+  <div id="unlockBox">
+    <h3>Tu as un code Premium ?</h3>
+    <input type="text" id="codeInput" placeholder="EX: TEST1234" maxlength="20">
+    <br>
+    <button onclick="unlockPremium()">Débloquer les 48 Cours</button>
+  </div>
+
+  <div id="coursesGrid"></div>
+
+  <footer>
+    © 2026 CodeBF - Formation Dev Burkina Faso<br>
+    Contact WhatsApp: <a href="https://wa.me/22606625715" target="_blank">+226 06 62 57 15</a>
+  </footer>
+    <!-- PARTIE 2: FIREBASE + LOGIQUE - VERSION FINALE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // TON CONFIG FIREBASE DÉJÀ INTÉGRÉ - TOUCHE À RIEN
+    const firebaseConfig = {
+      apiKey: "AIzaSyBMcDusHZGUHoQuKccRjSvc3Kuxg-GqhGw",
+      authDomain: "codebf-3727c.firebaseapp.com",
+      databaseURL: "https://codebf-3727c-default-rtdb.firebaseio.com",
+      projectId: "codebf-3727c",
+      storageBucket: "codebf-3727c.firebasestorage.app",
+      messagingSenderId: "769008489320",
+      appId: "1:769008489320:web:eb2d616f327f623452fcdd",
+      measurementId: "G-Z4FZ0TMWT3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // VARIABLES GLOBALES
+    let isPremium = localStorage.getItem('codebf_premium') === 'true';
+
+    // 48 COURS COMPLETS
+    const courses = [
+      { id: 1, title: "HTML5 - Les Bases", desc: "Structure d'une page web complète", icon: "🌐", link: "#", free: true },
+      { id: 2, title: "CSS3 - Design Moderne", desc: "Mise en page responsive pro", icon: "🎨", link: "#", free: true },
+      { id: 3, title: "JavaScript Débutant", desc: "Variables, fonctions, conditions", icon: "⚡", link: "#", free: true },
+      { id: 4, title: "JS DOM", desc: "Manipuler le HTML avec JS", icon: "⚡", link: "#" },
+      { id: 5, title: "JS Async/Await", desc: "API, Fetch, Promises", icon: "⚡", link: "#" },
+      { id: 6, title: "React.js Débutant", desc: "Components, Props, State", icon: "⚛️", link: "#" },
+      { id: 7, title: "React Hooks", desc: "useState, useEffect, useContext", icon: "⚛️", link: "#" },
+      { id: 8, title: "React Router", desc: "Navigation multi-pages", icon: "⚛️", link: "#" },
+      { id: 9, title: "Node.js + Express", desc: "Créer un serveur backend", icon: "🟢", link: "#" },
+      { id: 10, title: "API REST avec Express", desc: "Routes GET POST PUT DELETE", icon: "🟢", link: "#" },
+      { id: 11, title: "MongoDB", desc: "Base de données NoSQL", icon: "🍃", link: "#" },
+      { id: 12, title: "Mongoose", desc: "ODM pour MongoDB", icon: "🍃", link: "#" },
+      { id: 13, title: "Python Débutant", desc: "Syntaxe et logique Python", icon: "🐍", link: "#" },
+      { id: 14, title: "Python POO", desc: "Classes, objets, héritage", icon: "🐍", link: "#" },
+      { id: 15, title: "Django Débutant", desc: "Framework web Python", icon: "🎯", link: "#" },
+      { id: 16, title: "Django ORM", desc: "Base de données avec Django", icon: "🎯", link: "#" },
+      { id: 17, title: "Git & GitHub", desc: "Versionning et collaboration", icon: "📦", link: "#" },
+      { id: 18, title: "Tailwind CSS", desc: "Framework CSS utilitaire", icon: "💨", link: "#" },
+      { id: 19, title: "TypeScript", desc: "JavaScript avec types", icon: "🔷", link: "#" },
+      { id: 20, title: "Next.js 14", desc: "React fullstack + SSR", icon: "▲", link: "#" },
+      { id: 21, title: "API REST Complète", desc: "Auth, CRUD, sécurité", icon: "🔌", link: "#" },
+      { id: 22, title: "PostgreSQL", desc: "SQL relationnel avancé", icon: "🐘", link: "#" },
+      { id: 23, title: "Prisma ORM", desc: "ORM moderne pour SQL", icon: "⚡", link: "#" },
+      { id: 24, title: "Docker", desc: "Conteneuriser tes apps", icon: "🐳", link: "#" },
+      { id: 25, title: "Déploiement Vercel", desc: "Mettre en ligne gratuit", icon: "🚀", link: "#" },
+      { id: 26, title: "Firebase Auth", desc: "Connexion Google/Email", icon: "🔥", link: "#" },
+      { id: 27, title: "Firebase Firestore", desc: "Base de données temps réel", icon: "🔥", link: "#" },
+      { id: 28, title: "Stripe Paiement", desc: "Intégrer paiement en ligne", icon: "💳", link: "#" },
+      { id: 29, title: "Responsive Design", desc: "Mobile first parfait", icon: "📱", link: "#" },
+      { id: 30, title: "Animations CSS", desc: "Transitions et keyframes", icon: "✨", link: "#" },
+      { id: 31, title: "Sass/SCSS", desc: "CSS avec super pouvoirs", icon: "💅", link: "#" },
+      { id: 32, title: "Webpack + Vite", desc: "Bundlers modernes", icon: "📦", link: "#" },
+      { id: 33, title: "Jest Testing", desc: "Tests unitaires JS", icon: "🧪", link: "#" },
+      { id: 34, title: "Redux Toolkit", desc: "State management pro", icon: "🔄", link: "#" },
+      { id: 35, title: "GraphQL", desc: "API query moderne", icon: "📊", link: "#" },
+      { id: 36, title: "Vue.js 3", desc: "Framework progressif", icon: "💚", link: "#" },
+      { id: 37, title: "Nuxt.js", desc: "Vue fullstack", icon: "💚", link: "#" },
+      { id: 38, title: "PHP 8", desc: "Backend classique", icon: "🐘", link: "#" },
+      { id: 39, title: "Laravel 10", desc: "Framework PHP élégant", icon: "🔺", link: "#" },
+      { id: 40, title: "SEO Technique", desc: "Référencement Google", icon: "📈", link: "#" },
+      { id: 41, title: "Figma UI/UX", desc: "Designer des interfaces", icon: "🎨", link: "#" },
+      { id: 42, title: "Flutter Débutant", desc: "App mobile iOS/Android", icon: "📱", link: "#" },
+      { id: 43, title: "React Native", desc: "Mobile avec React", icon: "📱", link: "#" },
+      { id: 44, title: "Cybersécurité Web", desc: "XSS, CSRF, SQL Injection", icon: "🛡️", link: "#" },
+      { id: 45, title: "Linux Serveur", desc: "Ubuntu, Nginx, SSH", icon: "🐧", link: "#" },
+      { id: 46, title: "Freelance Dev", desc: "Trouver clients Upwork", icon: "💼", link: "#" },
+      { id: 47, title: "Portfolio Pro", desc: "CV développeur qui convertit", icon: "📁", link: "#" },
+      { id: 48, title: "Entretien Tech", desc: "Algo, système, comportemental", icon: "🎯", link: "#" }
+    ];
+
+    // FERMER PAGE BIENVENUE
+    window.closeWelcome = function() {
+      document.getElementById('welcomePage').style.display = 'none';
+      localStorage.setItem('codebf_welcome_seen', 'true');
+    }
+
+    // SI DÉJÀ VU LA PAGE BIENVENUE, ON LA CACHE
+    if (localStorage.getItem('codebf_welcome_seen') === 'true') {
+      document.getElementById('welcomePage').style.display = 'none';
+    }
+
+    // AFFICHER LES COURS
+    function renderCourses() {
+      const grid = document.getElementById('coursesGrid');
+      grid.innerHTML = '';
+      
+      courses.forEach(course => {
+        const isLocked = !isPremium && !course.free;
+        const card = document.createElement('div');
+        card.className = 'course-card' + (isLocked ? ' locked' : '');
+        
+        card.innerHTML = `
+          <div class="course-img">${course.icon}</div>
+          <div class="course-content">
+            <h3>${course.title}</h3>
+            <p>${course.desc}</p>
+            <button ${isLocked ? 'disabled' : ''} onclick="openCourse('${course.link}')">
+              ${isLocked ? 'Premium requis' : 'Commencer'}
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // CACHE BANNIÈRE SI PREMIUM
+      if (isPremium) {
+        document.getElementById('premiumBanner').style.display = 'none';
+        document.getElementById('unlockBox').style.display = 'none';
+      }
+    }
+
+    // OUVRIR UN COURS
+    window.openCourse = function(link) {
+      if (link && link !== '#') {
+        window.open(link, '_blank');
+      } else {
+        alert('Lien du cours bientôt disponible ! Contact WhatsApp: +226 06 62 57 15');
+      }
+    }
+
+    // DÉBLOQUER PREMIUM - VERSION FINALE AVEC DEBUG
+    window.unlockPremium = async function() {
+      const code = document.getElementById('codeInput').value.trim().toUpperCase();
+      if (!code) {
+        alert('Entre un code Premium');
+        return;
+      }
+
+      try {
+        const codeRef = doc(db, 'codes', code);
+        const codeSnap = await getDoc(codeRef);
+
+        if (!codeSnap.exists()) {
+          alert('❌ Code invalide.\n\nVérifie que "' + code + '" existe dans Firestore → collection "codes"');
+          return;
+        }
+
+        const data = codeSnap.data();
+        
+        if (data.used === true) {
+          alert('❌ Ce code a déjà été utilisé.\n\nContact: +226 06 62 57 15 pour un nouveau code');
+          return;
+        }
+
+        await updateDoc(codeRef, { 
+          used: true, 
+          usedAt: new Date().toISOString() 
+        });
+
+        isPremium = true;
+        localStorage.setItem('codebf_premium', 'true');
+        renderCourses();
+        alert('✅ Premium activé !\n\nTu as accès aux 48 cours à vie.\n\nMerci pour ta confiance 🙏');
+
+      } catch (error) {
+        let msg = 'ERREUR: ' + error.code + '\n\n';
+        if (error.code === 'permission-denied') {
+          msg += 'Firestore Règles: Va dans Firebase → Firestore → Règles → Publie: allow read, update: if true;';
+        } else if (error.code === 'unavailable') {
+          msg += 'Firestore pas créé: Va dans Firebase → Firestore → Créer une base de données';
+        } else {
+          msg += error.message + '\n\nContact support: +226 06 62 57 15';
+        }
+        alert(msg);
+      }
+    }
+
+    // LANCER AU DÉMARRAGE
+    renderCourses();
+  </script>
+
+</body>
+</html>
